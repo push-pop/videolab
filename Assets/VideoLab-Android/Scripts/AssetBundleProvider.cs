@@ -50,7 +50,7 @@ public class AssetBundleProvider : MonoBehaviour
              Application.persistentDataPath;
 
         var dir = Path.Combine(baseDir
-            , "VideoPacks");
+            , "VideoPaks");
 
         if (!Directory.Exists(dir))
             Directory.CreateDirectory(dir);
