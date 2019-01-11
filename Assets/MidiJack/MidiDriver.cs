@@ -112,6 +112,8 @@ namespace MidiJack
 
         void Update()
         {
+            if (Application.platform.Equals(RuntimePlatform.Android)) return;
+
             while (true)
             {
                 // Pop from the queue.

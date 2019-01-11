@@ -33,25 +33,29 @@ namespace MidiJack
 
         MidiMaster()
         {
+
+
             GameObject sourceGo = new GameObject("Midi Master Source");
             GameObject.DontDestroyOnLoad(sourceGo);
             sourceGo.hideFlags = HideFlags.HideInHierarchy;
             _source = sourceGo.AddComponent<MidiSource>();
-            _source.endpointId = uint.MaxValue;
+            _source.endpointId = Application.platform.Equals(RuntimePlatform.Android) ? 0 : uint.MaxValue;
 
             GameObject destinationGo = new GameObject("Midi Master Destination");
             GameObject.DontDestroyOnLoad(destinationGo);
             destinationGo.hideFlags = HideFlags.HideInHierarchy;
             _destination = destinationGo.AddComponent<MidiDestination>();
-            _destination.endpointId = uint.MaxValue;
+            _destination.endpointId = Application.platform.Equals(RuntimePlatform.Android) ? 0 : uint.MaxValue;
         }
 
         #region Singleton
 
         static MidiMaster _instance = null;
 
-        public static MidiMaster Instance {
-            get {
+        public static MidiMaster Instance
+        {
+            get
+            {
                 if (_instance == null)
                     _instance = new MidiMaster();
 
@@ -62,27 +66,32 @@ namespace MidiJack
         #endregion
 
         // MIDI event delegates
-        public static MidiSource.NoteOnDelegate noteOnDelegate {
+        public static MidiSource.NoteOnDelegate noteOnDelegate
+        {
             get { return Instance._source.noteOnDelegate; }
             set { Instance._source.noteOnDelegate = value; }
         }
 
-        public static MidiSource.NoteOffDelegate noteOffDelegate {
+        public static MidiSource.NoteOffDelegate noteOffDelegate
+        {
             get { return Instance._source.noteOffDelegate; }
             set { Instance._source.noteOffDelegate = value; }
         }
 
-        public static MidiSource.KnobDelegate knobDelegate {
+        public static MidiSource.KnobDelegate knobDelegate
+        {
             get { return Instance._source.knobDelegate; }
             set { Instance._source.knobDelegate = value; }
         }
 
-        public static MidiSource.RealtimeDelegate realtimeDelegate {
+        public static MidiSource.RealtimeDelegate realtimeDelegate
+        {
             get { return Instance._source.realtimeDelegate; }
             set { Instance._source.realtimeDelegate = value; }
         }
 
-        public static MidiSource.SysexDelegate sysexDelegate {
+        public static MidiSource.SysexDelegate sysexDelegate
+        {
             get { return Instance._source.sysexDelegate; }
             set { Instance._source.sysexDelegate = value; }
         }

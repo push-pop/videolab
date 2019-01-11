@@ -4,7 +4,7 @@ using System.IO;
 
 public class BuildVideopaks
 {
-    [MenuItem ("Assets/Build Videopaks")]
+    [MenuItem("Assets/Build Videopaks")]
     static void BuildAll()
     {
         string rootDir = EditorUtility.SaveFolderPanel("Select output directory", "", "");
@@ -27,11 +27,18 @@ public class BuildVideopaks
 
             string osxDir = pakDir + VideopakManager.GetPlatformString(RuntimePlatform.OSXPlayer);
             Directory.CreateDirectory(osxDir);
-            #if UNITY_2017_3_OR_NEWER
+#if UNITY_2017_3_OR_NEWER
             BuildPipeline.BuildAssetBundles(osxDir, buildMap, BuildAssetBundleOptions.None, BuildTarget.StandaloneOSX);
-            #else
+#else
             BuildPipeline.BuildAssetBundles(osxDir, buildMap, BuildAssetBundleOptions.None, BuildTarget.StandaloneOSXUniversal);
-            #endif
+#endif
+            string androidDir = pakDir + VideopakManager.GetPlatformString(RuntimePlatform.Android);
+            Directory.CreateDirectory(androidDir);
+            BuildPipeline.BuildAssetBundles(androidDir, buildMap, BuildAssetBundleOptions.None, BuildTarget.Android);
+
+            string windowsDir = pakDir + VideopakManager.GetPlatformString(RuntimePlatform.WindowsPlayer);
+            Directory.CreateDirectory(windowsDir);
+            BuildPipeline.BuildAssetBundles(windowsDir, buildMap, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows64);
         }
     }
 }

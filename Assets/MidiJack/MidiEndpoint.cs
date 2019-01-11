@@ -166,6 +166,7 @@ namespace MidiJack
 
         protected void Refresh()
         {
+
             if (_numEndpoints != CountEndpoints())
                 CheckConnection();
 
@@ -183,6 +184,8 @@ namespace MidiJack
 
         void Start()
         {
+            if (Application.platform.Equals(RuntimePlatform.Android)) return;
+
             CheckConnection();
         }
 

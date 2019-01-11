@@ -10,8 +10,10 @@ public class VideopakManager : MonoBehaviour
 
     static VideopakManager _instance;
 
-    public static VideopakManager Instance {
-        get {
+    public static VideopakManager Instance
+    {
+        get
+        {
             if (_instance == null)
             {
                 GameObject go = new GameObject("Videopak Manager");
@@ -31,6 +33,12 @@ public class VideopakManager : MonoBehaviour
         if (platform == RuntimePlatform.OSXEditor || platform == RuntimePlatform.OSXPlayer)
             return "OSX";
 
+        if (platform == RuntimePlatform.Android)
+            return "Android";
+
+        if (platform == RuntimePlatform.WindowsEditor || platform == RuntimePlatform.WindowsPlayer)
+            return "Windows";
+
         return null;
     }
 
@@ -38,7 +46,7 @@ public class VideopakManager : MonoBehaviour
     {
         if (pakRoot == Instance._path)
             yield break;
-        
+
         yield return Instance.StartCoroutine(Unload());
 
         string platform = GetPlatformString(Application.platform);

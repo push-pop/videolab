@@ -80,7 +80,7 @@ namespace MidiJack
 
         public override int CountEndpoints()
         {
-            return MidiDriver.CountSources();
+            return Application.platform.Equals(RuntimePlatform.Android) ? 0 : MidiDriver.CountSources();
         }
 
         public float GetKey(MidiChannel channel, int noteNumber)

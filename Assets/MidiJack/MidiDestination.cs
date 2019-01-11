@@ -103,6 +103,8 @@ namespace MidiJack
 
         void Update()
         {
+            if (Application.platform.Equals(RuntimePlatform.Android)) return;
+
             Refresh();   
         }
 
